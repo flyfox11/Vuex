@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vuex第一篇</title>
+</head>
+<body>
+<div id="app" v-text="msg">
+
+</div>
+<script src="http://cdn.bootcss.com/vue/2.1.4/vue.min.js"></script>
+<script src="http://cdn.bootcss.com/vuex/2.0.0/vuex.min.js"></script>
+<script>
+
+    const store = new Vuex.Store({
+        state: {
+            count: 0,
+            arr:[2,3,5]
+        },
+        mutations: {
+            increment (state) {
+                state.count++
+            },
+            ha(state){
+                state.arr.map(function (item) {
+                      return item.length;
+                })
+            }
+        }
+    });
+    store.commit('increment')
+    /*store.commit('ha');
+    console.log(store.state.arr);*/
+    new Vue({
+        el:'#app',
+        data:{
+            msg:store.state.count
+        }
+    })
+</script>
+</body>
+</html>

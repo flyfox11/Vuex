@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vuex的state实例</title>
+</head>
+<body>
+<div id="test">
+   <test></test>
+</div>
+<script src="http://cdn.bootcss.com/vue/2.1.4/vue.js"></script>
+<script src="http://cdn.bootcss.com/vuex/2.0.0/vuex.js"></script>
+<script>
+    const store=new Vuex.Store({
+        state:{
+            count:123
+        }
+    });
+    const Counter={
+        template:'<h2 >{{ct()}}</h2>',
+        /*computed:{
+            count:function () {
+                return this.$store.state.count;
+            }
+        },*/
+        methods:{
+            ct() {
+                return this.$store.state.count;
+            }
+        }
+    }
+    new Vue({
+        el:'#test',
+        store,
+        components:{
+            test:Counter
+        }
+    });
+
+</script>
+</body>
+</html>
