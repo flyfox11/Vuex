@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vuex的modules</title>
+</head>
+<body>
+<div id="app">
+    <a href="javasript:;" v-text="msg"></a>
+    <list></list>
+</div>
+<script src="http://cdn.bootcss.com/vue/2.1.4/vue.min.js"></script>
+<script src="http://cdn.bootcss.com/vuex/2.0.0/vuex.min.js"></script>
+<script>
+    var module1={
+        state:{
+            s1:111
+        },
+        getters:{
+            divide(state,getters,rootState){
+                return state/rootState;
+            }
+        }
+    };
+    var module2={
+        state:{
+            s2:22
+        }
+    };
+    var module3={
+        state:{
+            s3:3333
+        }
+    }
+    //模块中的getters的属性名不能喝store中的相同
+    const store=new Vuex.Store({
+        state:{
+            s:0
+        },
+        modules:{
+            a:module1,
+            b:module2
+        }
+    });
+    //动态注册模块
+    store.registerModule('c',module3);
+    const toDo={
+        template:'<a href="javasript:;" v-text="megs"></a>',
+        data:function () {
+            //这个地方getters的调用方法，需要格外注意
+            return {megs:this.$store.getters.divide};
+        },
+
+    }
+    new Vue({
+        el:'#app',
+        data:{
+            msg:store.state.a.s1
+        },
+        store,
+        components:{
+            'list':toDo
+        }
+    })
+</script>
+</body>
+</html>

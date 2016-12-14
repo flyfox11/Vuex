@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vuex的action</title>
+</head>
+<body>
+<div id="app">
+   <span v-text="msg"></span>
+</div>
+<script src="http://cdn.bootcss.com/vue/2.1.4/vue.min.js"></script>
+<script src="http://cdn.bootcss.com/vuex/2.0.0/vuex.min.js"></script>
+<script>
+    const store=new Vuex.Store({
+        state:{
+            count:111
+        },
+        mutations:{
+            sum(state){
+                return state.count+=55;
+            }
+        },
+        actions: {
+            hello(context){
+                context.commit('sum');
+            }
+            /*等同于上面的hello ({commit}) {
+                commit('sum');
+            }*/
+
+            /*异步helloAsync(context){
+                setTimeout(function () {
+                    context.commit('sum');
+                },1000);
+            }*/
+        }
+    });
+//    store.commit('sum');
+      store.dispatch('hello');
+    // 以对象形式分发
+   /* store.dispatch({
+        type: 'hello',
+        amount: 10
+    })*/
+   var vm=new Vue({
+       el:'#app',
+       data:{
+           msg:store.state.count
+       }
+   })
+</script>
+</body>
+</html>

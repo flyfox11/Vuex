@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vuex的payload</title>
+</head>
+<body>
+<div id="app">
+    <span v-text="count"></span>
+</div>
+<script src="http://cdn.bootcss.com/vue/2.1.4/vue.min.js"></script>
+<script src="http://cdn.bootcss.com/vuex/2.0.0/vuex.min.js"></script>
+<script>
+    const store=new Vuex.Store({
+        state:{
+            count:212
+        },
+        mutations:{
+            incre:function (state,payload) {
+                state.count+=payload.amount;
+            }
+        }
+    });
+//    store.commit('incre',{amount:20});
+    //等同于以上写法
+    store.commit({
+        type:'incre',
+        amount:200
+    })
+    new Vue({
+        el:'#app',
+        data:{
+            count:store.state.count
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vuex的getters</title>
+    <style>
+        .computed{
+            color: blueviolet;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <list></list>
+</div>
+
+<script src="http://cdn.bootcss.com/vue/2.1.4/vue.js"></script>
+<script src="http://cdn.bootcss.com/vuex/2.0.0/vuex.js"></script>
+<script>
+    const store=new Vuex.Store({
+        state:{
+            todos:[
+                {name:'wuwu',done:true},
+                {name:'wang',done:false},
+                {name:'li',done:true}
+            ]
+        },
+        getters:{
+            /*result:function (state) {
+                return state.todos.filter(function (todo) {
+                    return todo.done;
+                })
+            }*/
+            //稍微高级的es6写法，把箭头函数后面的{}换成()就可以省略return了
+            result:(state)=>
+                (state.todos.filter(todo=>todo.done)),
+            resultCount:(state,getters)=>
+                (getters.result.length)
+        }
+    });
+    const toDo={
+        template:'<ul><li v-for="meg in megs" v-text="meg.name" :class="{computed:meg.done}"></li></ul>',
+        data:function () {
+            console.log(this.$store.getters.result);
+            console.log(this.$store.getters.resultCount);
+            return {megs:this.$store.state.todos};
+        },
+
+    }
+    new Vue({
+        el:'#app',
+        store,
+        components:{
+            'list':toDo
+        }
+    })
+</script>
+</body>
+</html>
