@@ -40,7 +40,11 @@
         modules:{
             a:module1,
             b:module2
-        }
+        },
+        //vuex的插件
+        plugins: [],
+        //使用严格模式
+        strict: true
     });
     //动态注册模块
     store.registerModule('c',module3);
@@ -50,7 +54,6 @@
             //这个地方getters的调用方法，需要格外注意
             return {megs:this.$store.getters.divide};
         },
-
     }
     new Vue({
         el:'#app',
