@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vuex的辅助函数mapGetters</title>
+</head>
+<body>
+<div id="test">
+     <span v-text="fun1"></span>
+</div>
+<script src="http://cdn.bootcss.com/vue/2.1.4/vue.min.js"></script>
+<script src="http://cdn.bootcss.com/vuex/2.0.0/vuex.min.js"></script>
+<script type="text/javascript">
+    const store=new Vuex.Store({
+        state:{
+            count:1000
+        },
+        getters:{
+            fun(state){
+                return state.count+=1;
+            }
+        }
+    });
+    var mapGetters=Vuex.mapGetters;
+    new Vue({
+        el:'#test',
+        store,
+        data:{
+            msg:1
+        },
+        computed:mapGetters({
+            fun1:'fun'
+        })
+    });
+</script>
+</body>
+</html>

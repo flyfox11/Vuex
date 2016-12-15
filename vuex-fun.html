@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vuex的辅助函数</title>
+    <style>
+        [v-ff]{ display: none;}
+    </style>
+</head>
+<body>
+<div id="test">
+    <span v-text="msg"></span>
+    <h1 v-text="bbb"></h1>
+    <!--这也是防止闪烁的一种方式-->
+    <h2 v-ff>{{countAlias}}</h2>
+    <h3 v-text="countPlusLocalState"></h3>
+</div>
+<script src="http://cdn.bootcss.com/vue/2.1.4/vue.min.js"></script>
+<script src="http://cdn.bootcss.com/vuex/2.0.0/vuex.min.js"></script>
+<script type="text/javascript">
+    var mapState=Vuex.mapState;
+
+    const store=new Vuex.Store({
+        state:{
+            count:11,
+            aaa:'哈哈哈',
+            a:'吼吼吼'
+        }
+    });
+    var vm=new Vue({
+        el:'#test',
+        data:{
+            msg:store.state.count,
+            count:222
+        },
+        store,
+//        computed:mapState(['aaa'])
+        computed:mapState({
+            bbb:state=>state.a,
+            countAlias:'aaa',
+            countPlusLocalState (state) {
+                console.log(state.count);
+                console.log(this);
+                return state.count + this.$data.count;
+            }
+        })
+    });
+//    vm.$mount('#test'); //手动挂载指定元素
+
+</script>
+</body>
+</html>
